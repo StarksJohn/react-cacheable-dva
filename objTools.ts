@@ -1,17 +1,6 @@
 // @ts-ignore
 import _ from 'lodash'
 
-// 删除 obj对象里的 和 keys 数组 里 同名的 属性, 生成新的  对象
-const omit = (obj: { [x: string]: any }, keys: string | string[]) => {
-  return Object.keys(obj)
-    .reduce((result, key) => {
-      if (!keys.includes(key)) {
-        // @ts-ignore
-        result[key] = obj[key]
-      }
-      return result
-    }, {})
-}
 
 /**
  * 深度合并2个对象的所有属性，obj2里比 obj1 里多的属性 不会 被合并到 新对象里，和 {...obj1,...obj2} 不一样，具体看 https://segmentfault.com/q/1010000008815500
@@ -78,5 +67,5 @@ const isNotEmpty = (value: string | any[]) => {
 }
 
 export default {
-  omit, DeepMergeNoExtraProps, deepCopy, isEmpty, isNotEmpty
+   DeepMergeNoExtraProps, deepCopy, isEmpty, isNotEmpty
 }
