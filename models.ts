@@ -9,6 +9,7 @@ import { modelProps } from './modelProps'
 
 export default function (modelList:modelProps[]) {
   const modelContainer = {}
+  console.log('models.ts modelList=', modelList)
 
   // @ts-ignore
   _.forEach(modelList, (it: modelProps) => {
