@@ -3,20 +3,20 @@ import _ from 'lodash'
 import dva from './dva'
 
 export interface cacheAnAttributeOfInitStateProps {
-  key:string
-  value:any
-  attributesToBeCached:string[]
+    key: string
+    value: any
+    attributesToBeCached: string[]
 }
 
 // @ts-ignore
 // @ts-ignore
 export default {
   /**
-   * https://www.cnblogs.com/chrissong/p/10841760.html
-   * 避免 try catch  后去 err
-   * @param promise
-   * @returns {*|Promise<T | any[]>}
-   */
+     * https://www.cnblogs.com/chrissong/p/10841760.html
+     * 避免 try catch  后去 err
+     * @param promise
+     * @returns {*|Promise<T | any[]>}
+     */
   to: (promise: Promise<any>) => {
     return promise
       .then((res) => {
@@ -37,12 +37,12 @@ export default {
   },
 
   /**
-   *
-   * @param old
-   * @param now
-   * @param keys :比较全部属性: Object.keys(old) 或  比较某个属性 :['memberList']
-   * @returns {boolean}
-   */
+     *
+     * @param old
+     * @param now
+     * @param keys :比较全部属性: Object.keys(old) 或  比较某个属性 :['memberList']
+     * @returns {boolean}
+     */
   shouldUpdate: (old: { [x: string]: any }, now: { [x: string]: any }, keys: { [x: string]: any }) => {
     const isEmpty = (object: object | null) => {
       if (object === null) {
@@ -77,7 +77,8 @@ export default {
             if (JSON.stringify(oldValue) !== JSON.stringify(nowValue)) {
               return true
             }
-          } catch (e) {}
+          } catch (e) {
+          }
         }
       }
     }
@@ -85,10 +86,10 @@ export default {
   },
 
   /**
-   * 缓存 initState 的某个属性,如果这个属性再 attributesToBeCached 里注册了的话
-   * @param key
-   */
-  cacheAnAttributeOfInitState: ({ key, value, attributesToBeCached }:cacheAnAttributeOfInitStateProps) => {
+     * 缓存 initState 的某个属性,如果这个属性再 attributesToBeCached 里注册了的话
+     * @param key
+     */
+  cacheAnAttributeOfInitState: ({ key, value, attributesToBeCached }: cacheAnAttributeOfInitStateProps) => {
     const index = _.indexOf(attributesToBeCached, key)
     if (index !== -1) {
       console.log('tool.js 开始缓存 initState.', key, ' 的值=', value)
@@ -97,11 +98,16 @@ export default {
   },
 
   /**
-   * Dispatch anywhere outside the Component
-   * 在 Component 外 的任何地方 发 dispatch
-   * @param p
-   */
-  dispatchAnyWhere: p => {
+     * Dispatch anywhere outside the Component
+     * 在 Component 外 的任何地方 发 dispatch
+     * @param p
+     */
+  dispatchAnyWhere: (p: {
+        type: string, // effect: string
+        action: string,
+        payload: object,
+        callback?: Function,
+    }) => {
     return dva.getDispatch(p)
   },
   getStore: () => {
