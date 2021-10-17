@@ -1,5 +1,3 @@
-// @ts-ignore
-import _ from 'lodash'
 import dva from './dva'
 
 export interface cacheAnAttributeOfInitStateProps {
@@ -90,11 +88,11 @@ export default {
      * @param key
      */
   cacheAnAttributeOfInitState: ({ key, value, attributesToBeCached }: cacheAnAttributeOfInitStateProps) => {
-    const index = _.indexOf(attributesToBeCached, key)
-    if (index !== -1) {
-      console.log('tool.js 开始缓存 initState.', key, ' 的值=', value)
-      // asyncStorage.setItem(key, value).then()
-    }
+    // const index = _.indexOf(attributesToBeCached, key)
+    // if (index !== -1) {
+    //   console.log('tool.js 开始缓存 initState.', key, ' 的值=', value)
+    //   // asyncStorage.setItem(key, value).then()
+    // }
   },
 
   /**
