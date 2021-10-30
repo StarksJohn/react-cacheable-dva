@@ -1,28 +1,23 @@
 import dva from './dva'
+import {cacheInterface} from './modelProps'
 
 export interface cacheAnAttributeOfInitStateProps {
     key: string
     value: any
-    attributesToBeCached: string[]
+    attributesToBeCached: string[],
+    cacheFunc?: cacheInterface
 }
 
-export interface getCacheInterface {
-    (key: string): Promise<string | undefined>;
-}
 
-export interface cacheInterface {
-    (key: string, value: string): void;
-}
-
-var getCache: getCacheInterface = (key: string) => {
-    return new Promise((resolve) => {
-        console.log('react-cacheable-dva tool.ts getCache')
-        resolve(key)
-    })
-}
-var cacheFunc: cacheInterface = (key: string, value: string) => {
-    console.log('react-cacheable-dva tool.ts cacheFunc key=', key, ' value=', value)
-}
+// var getCache: getCacheInterface = (key: string) => {
+//     return new Promise((resolve) => {
+//         console.log('react-cacheable-dva tool.ts getCache')
+//         resolve(key)
+//     })
+// }
+// var cacheFunc: cacheInterface = (key: string, value: string) => {
+//     console.log('react-cacheable-dva tool.ts cacheFunc key=', key, ' value=', value)
+// }
 
 
 // @ts-ignore
@@ -55,6 +50,6 @@ export default {
     },
     getStore: () => {
         return dva.getStore()
-    }, getCache, cacheFunc
+    }, //getCache, cacheFunc
 
 }
