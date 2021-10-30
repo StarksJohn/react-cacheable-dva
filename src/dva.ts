@@ -5,12 +5,14 @@ let app: { model: (arg0: any) => any; use: (arg0: { onError(err: any): void }) =
 let store: { dispatch: any }
 let dispatch
 let registered: boolean
+let getCache:undefined
 
-function createApp (opt: { models: any[], enableLog:boolean }) {
+function createApp (opt: { models: any[], enableLog:boolean,getCache:Function }) {
   // redux 的日志
   // if (opt.enableLog) {
   //   opt.onAction = [createLogger()]
   // }
+  getCache=getCache
 
   app = create(opt)
 
@@ -55,5 +57,6 @@ export default {
   },
   getStore: () => {
     return app.getStore()
-  }
+  },
+  getCache
 }
