@@ -10,7 +10,12 @@ export interface getCacheInterface {
     (key: string): Promise<string | undefined>;
 }
 
-var getCache = undefined
+var getCache :getCacheInterface= (key: string) => {
+    return new Promise((resolve) => {
+        console.log('react-cacheable-dva tool.ts getCache')
+        resolve(key)
+    })
+}
 
 
 // @ts-ignore

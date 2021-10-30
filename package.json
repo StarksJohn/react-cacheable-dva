@@ -1,7 +1,7 @@
 {
   "name": "react-cacheable-dva",
   "license": "MIT",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -40,11 +40,12 @@
   "module": "dist/temp.esm.js",
   "homepage": "https://github.com/StarksJohn/react-cacheable-dva",
   "dependencies": {
+    "dva-core": "^2.0.4",
+    "lodash": "^4.17.21",
     "react-redux": "^7.2.5",
     "redux": "^4.1.1",
     "redux-thunk": "^2.3.0",
-    "dva-core": "^2.0.4",
-    "lodash": "^4.17.21"
+    "starkfrontendtools": "^0.0.8"
   },
   "devDependencies": {
     "@size-limit/preset-small-lib": "^6.0.4",

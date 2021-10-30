@@ -1,6 +1,8 @@
 // @ts-ignore
 import _ from 'lodash'
 import objTools from './objTools'
+import {tool as _tool}  from 'starkfrontendtools'
+import tool  from './tool'
 
 interface initCacheProps {
   // any props that come into the component
@@ -44,14 +46,15 @@ export default {
         ' attributesToBeCached=',
         attributesToBeCached
       )
-      _.forEach(attributesToBeCached, (key: string) => {
+      _.forEach(attributesToBeCached, async (key: string) => {
         console.log('baseModel.js initCache forEach key=', key)
-        const value = localStorage.getItem(key) ||[]
+        // const value = localStorage.getItem(key) ||[]
+        const [err, value] = await _tool.to(tool.getCache(key))
         console.log(
           'baseModel.js initCache forEach getItem key=',
           key,
           ' value=',
-          value
+          value,' err=',err
         )
         if (objTools.isNotEmpty(value)) {
           const payload = { [`${key}`]: value }

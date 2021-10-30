@@ -17,13 +17,13 @@ Usage:
         import {  } from 'react-cacheable-dva';
 
 Push:
-
-        open vpn in terminal and git push origin main
+        
+        yarn build
+            note: change the version of your package.json every time before npm publish
+        git push origin main
 
 Publish:
     
         npm login
-        yarn build
-        note: change the version of your package.json every time before npm publish
         npm publish
 
