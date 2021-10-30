@@ -7,7 +7,7 @@ export interface cacheAnAttributeOfInitStateProps {
 }
 
 export interface getCacheInterface {
-    (key: string, fromCache: boolean): Promise<string | undefined>;
+    (key: string): Promise<string | undefined>;
 }
 
 var getCache = undefined

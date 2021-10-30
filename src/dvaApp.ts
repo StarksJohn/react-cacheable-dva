@@ -11,6 +11,6 @@ export default (modelList:modelProps[],getCache:getCacheInterface) => {
   tool.getCache=getCache
   return dva.createApp({
     models: models(modelList),
-    enableLog: false,getCache
+    enableLog: false
   })
 }
