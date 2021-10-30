@@ -1,3 +1,4 @@
+// @ts-ignore
 import { create } from 'dva-core'
 
 let app: { model: (arg0: any) => any; use: (arg0: { onError(err: any): void }) => void; start: () => void; _store: any; getStore: { (): { (): any; new(): any; getState: { (): any; new(): any } }; dispatch: any; }; dispatch: (arg0: any) => any }

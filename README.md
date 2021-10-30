@@ -23,5 +23,7 @@ Push:
 Publish:
     
         npm login
-        npm publish
+        yarn build
         note: change the version of your package.json every time before npm publish
+        npm publish
+

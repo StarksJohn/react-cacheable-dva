@@ -45,6 +45,7 @@ const createDefault = ({ namespace, attributesToBeCached }:createDefaultProps) =
       // 通用的 具体控件发起的 effect,把 payload 发给对应的 reducer, 并且如果 action 在 attributesToBeCached 里注册过,就缓存 action 对应的 数据
       * [baseModel.baseEffects.saveSomeThing] (
         { action, payload, callback }:saveSomeThingParams1,
+        // @ts-ignore
         { put, call, select }:saveSomeThingParams2
       ) {
         console.log(
@@ -63,9 +64,9 @@ const createDefault = ({ namespace, attributesToBeCached }:createDefaultProps) =
           yield put({ type: baseModel.baseAction.saveSomeThing, payload })
 
           // 缓存 某个Model的 initState里的某个字段的值
-          // @ts-ignore
           yield cacheAnAttributeOfInitState({
             key: action,
+            // @ts-ignore
             value: payload[action],
             attributesToBeCached
           })

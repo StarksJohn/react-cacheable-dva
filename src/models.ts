@@ -18,9 +18,9 @@ export default function (modelList:modelProps[]) {
     const namespace:string = /* _.isString(it) ? it : */ it.namespace
     console.log('models.ts namespace=', namespace)
 
-    // @ts-ignore
     let modelObj = modelTools.createDefault({
       namespace,
+      // @ts-ignore
       attributesToBeCached: it.attributesToBeCached
     })
     if (!_.isString(it)) {

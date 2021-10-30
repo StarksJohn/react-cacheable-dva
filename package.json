@@ -1,19 +1,43 @@
 {
   "name": "react-cacheable-dva",
-  "version": "1.0.6",
+  "license": "MIT",
+  "version": "1.0.7",
   "description": "",
-  "main": "index.ts",
+  "main": "dist/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test",
+    "lint": "tsdx lint",
+    "prepare": "tsdx build",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
   },
+  "size-limit": [
+    {
+      "path": "dist/temp.cjs.production.min.js",
+      "limit": "10 KB"
+    },
+    {
+      "path": "dist/temp.esm.js",
+      "limit": "10 KB"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/StarksJohn/react-cacheable-dva"
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
   },
   "author": "stark8964911",
   "bugs": {
     "url": "https://github.com/StarksJohn/react-cacheable-dva/issues"
   },
+  "module": "dist/temp.esm.js",
   "homepage": "https://github.com/StarksJohn/react-cacheable-dva",
   "dependencies": {
     "react-redux": "^7.2.5",
@@ -23,16 +47,15 @@
     "lodash": "^4.17.21"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "@types/lodash": "^4.14.172",
-    "@typescript-eslint/eslint-plugin": "^4.29.0",
-    "@typescript-eslint/parser": "^4.29.0",
-    "eslint": "^7.32.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.23.4",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "eslint-plugin-react": "^7.24.0",
-    "typescript": "^4.4.3"
+    "@size-limit/preset-small-lib": "^6.0.4",
+    "@types/react": "^17.0.33",
+    "@types/react-dom": "^17.0.10",
+    "husky": "^7.0.4",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "size-limit": "^6.0.4",
+    "tsdx": "^0.14.1",
+    "tslib": "^2.3.1",
+    "typescript": "^4.4.4"
   }
 }

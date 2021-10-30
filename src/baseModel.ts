@@ -36,6 +36,7 @@ export default {
   baseSubscriptions: {
     // 初始化缓存
     initCache: (props: initCacheProps) => {
+      // @ts-ignore
       const { namespace, attributesToBeCached, dispatch } = props
       console.log(
         'baseModel.js subscriptions initCache namespace=',
@@ -45,7 +46,7 @@ export default {
       )
       _.forEach(attributesToBeCached, (key: string) => {
         console.log('baseModel.js initCache forEach key=', key)
-        const value = localStorage.getItem(key)
+        const value = localStorage.getItem(key) ||[]
         console.log(
           'baseModel.js initCache forEach getItem key=',
           key,
