@@ -10,11 +10,18 @@ export interface getCacheInterface {
     (key: string): Promise<string | undefined>;
 }
 
-var getCache :getCacheInterface= (key: string) => {
+export interface cacheInterface {
+    (key: string, value: string): void;
+}
+
+var getCache: getCacheInterface = (key: string) => {
     return new Promise((resolve) => {
         console.log('react-cacheable-dva tool.ts getCache')
         resolve(key)
     })
+}
+var cacheFunc: cacheInterface = (key: string, value: string) => {
+    console.log('react-cacheable-dva tool.ts cacheFunc key=', key, ' value=', value)
 }
 
 
@@ -48,6 +55,6 @@ export default {
     },
     getStore: () => {
         return dva.getStore()
-    }, getCache
+    }, getCache, cacheFunc
 
 }

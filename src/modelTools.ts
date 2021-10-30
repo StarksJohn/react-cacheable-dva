@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 // @ts-ignore
 import _ from 'lodash'
-import { cacheAnAttributeOfInitStateProps } from './tool'
+import tool,{ cacheAnAttributeOfInitStateProps } from './tool'
 import baseModel from './baseModel'
 
 /**
@@ -13,7 +13,8 @@ const cacheAnAttributeOfInitState = ({ key, value, attributesToBeCached }:cacheA
   if (index !== -1) {
     console.log('modelTools.js 开始缓存 initState.', key, ' 的值=', value)
     // eslint-disable-next-line no-undef
-    localStorage.setItem(key, value)
+    // localStorage.setItem(key, value)
+    tool.cacheFunc(key,value)
     console.log('modelTools.js 缓存 ', key, '成功')
   }
 }
