@@ -12,6 +12,11 @@
 // import _userModel from './userModel'
 // export const initDva = () => {
 //   console.log('dva initDva() ')
-//   return _dv([])
+//   return _dv([],(key:string) => {
+//       console.log('initDva getCache key=', key)
+//       return
+//   }, (key:string, value:string) => {
+//       console.log('initDva cacheFunc key=', key, ' value=', value)
+//   })
 // }
 // export const dvaApp = initDva()
