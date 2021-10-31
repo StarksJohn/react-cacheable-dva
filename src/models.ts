@@ -5,14 +5,16 @@
 // @ts-ignore
 import _ from 'lodash'
 import modelTools from './modelTools'
-import {modelProps} from './modelProps'
+import {cacheInterface, getCacheInterface,modelProps} from './modelProps'
 
-export default function (modelList: modelProps[]) {
+export default function (modelList: modelProps[],getCache: getCacheInterface, cacheFunc: cacheInterface) {
     const modelContainer = {}
     console.log('models.ts modelList=', modelList)
 
     // @ts-ignore
     _.forEach(modelList, (it: modelProps) => {
+        it.getCache = getCache
+        it.cacheFunc = cacheFunc
         console.log('models.ts forEach it=', it)
 
         const namespace: string = it.namespace

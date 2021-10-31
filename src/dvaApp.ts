@@ -11,7 +11,7 @@ export default (modelList: modelProps[], getCache: getCacheInterface, cacheFunc:
     // tool.cacheFunc=cacheFunc
     console.log('react-cacheable-dva dvaApp.ts getCache=', getCache, ' cacheFunc=', cacheFunc)
     return dva.createApp({
-        models: models(modelList),
+        models: models(modelList,getCache, cacheFunc),
         enableLog: false
     })
 }
