@@ -1,15 +1,16 @@
 /* eslint-disable consistent-return */
 // @ts-ignore
 import _ from 'lodash'
-import {cacheAnAttributeOfInitStateProps} from './tool'
+import { cacheAnAttributeOfInitStateProps } from './tool'
 import baseModel from './baseModel'
-import {getCacheInterface, cacheInterface} from './modelProps'
+import { saveSomeThingParams1, saveSomeThingParams2, createDefaultProps } from './modelProps'
+import { tool } from 'starkfrontendtools'
 
 /**
  * 缓存 initState 的某个属性,如果这个属性再 attributesToBeCached 里注册了的话
  * @param key
  */
-const cacheAnAttributeOfInitState = ({key, value, attributesToBeCached, cacheFunc}: cacheAnAttributeOfInitStateProps) => {
+const cacheAnAttributeOfInitState = ({ key, value, attributesToBeCached, cacheFunc }: cacheAnAttributeOfInitStateProps) => {
     const index = _.indexOf(attributesToBeCached, key)
     if (index !== -1) {
         console.log('modelTools.js 开始缓存 initState.', key, ' 的值=', value)
@@ -20,33 +21,6 @@ const cacheAnAttributeOfInitState = ({key, value, attributesToBeCached, cacheFun
     }
 }
 
-interface createDefaultProps {
-    namespace: string,
-    attributesToBeCached: string[],
-    getCache?: getCacheInterface,
-    cacheFunc?: cacheInterface
-}
-
-interface saveSomeThingParams1 {
-    action: string,
-    payload: {},
-
-    callback(): void
-}
-
-interface putParams {
-    type: string,
-    payload: object
-}
-
-interface saveSomeThingParams2 {
-    put(p: putParams): void,
-
-    call(): void,
-
-    select(): void
-}
-
 /**
  * 创建默认model
  * https://dvajs.com/api/#model
@@ -54,20 +28,29 @@ interface saveSomeThingParams2 {
  * @param namespace : 不能改为 nameSpace,因 Model 里定义的 就是 namespace
  * @returns {{effects: {}, namespace: *, reducers: {clear(): {}, save(*=, {payload: *}): *, saveSomeThing(*, {payload: *}): *}, state: {}}}
  */
-const createDefault = ({namespace, attributesToBeCached, getCache, cacheFunc}: createDefaultProps) => {
+const createDefault = ({ namespace, attributesToBeCached, getCache, cacheFunc, awaitSaveSomeThing }: createDefaultProps) => {
     return {
         namespace,
         state: {},
+        // modelTools.ts 里的 每个 effects 都会注入到每个 Model 里
         effects: {
-            // modelTools.js 里的 每个 effects 都会注入到每个 Model 里
-            // 通用的 具体控件发起的 effect,把 payload 发给对应的 reducer, 并且如果 action 在 attributesToBeCached 里注册过,就缓存 action 对应的 数据
-            * [baseModel.baseEffects.saveSomeThing](
-                {action, payload, callback}: saveSomeThingParams1,
+            /**
+             * saveSomeThing: 通用的 具体控件发起的 effect,把 payload 发给对应的 reducer, 并且如果 action 在 attributesToBeCached 里注册过,就缓存 action 对应的 数据
+             * 触发方式: const {dvaDispatch}=useDvaDispatch()
+             * @param action
+             * @param payload
+             * @param callback
+             * @param put
+             * @param call
+             * @param select
+             */
+            * [baseModel.baseEffects.saveSomeThing] (
+                { action, payload, callback }: saveSomeThingParams1,
                 // @ts-ignore
-                {put, call, select}: saveSomeThingParams2
+                { put, call, select }: saveSomeThingParams2
             ) {
                 console.log(
-                    'modelTools.js effects saveSomeThing \n namespace=',
+                    'modelTools.ts effects saveSomeThing \n namespace=',
                     namespace,
                     '\n payload=',
                     payload,
@@ -79,27 +62,75 @@ const createDefault = ({namespace, attributesToBeCached, getCache, cacheFunc}: c
 
                 if (payload instanceof Object) {
                     // 更新 当前 model 的 state
-                    yield put({type: baseModel.baseAction.saveSomeThing, payload})
+                    yield put({ type: baseModel.baseAction.saveSomeThing, payload })
 
                     // 缓存 某个Model的 initState里的某个字段的值
                     yield cacheAnAttributeOfInitState({
                         key: action,
                         // @ts-ignore
                         value: payload[action],
-                        attributesToBeCached, cacheFunc
+                        attributesToBeCached,
+                        cacheFunc
                     })
 
                     callback && callback()
+                }
+            },
+            /**
+             * 每个model通用的异步获取数据 && 更新整个 initState 的 effect
+             * @param action
+             * @param payload
+             * @param callback
+             * @param put
+             * @param call
+             * @param select
+             */
+            // @ts-ignore
+            * [baseModel.baseEffects.awaitSaveSomeThing] (
+                { action, payload, callback }:saveSomeThingParams1,
+                // @ts-ignore
+                { put, call, select }:saveSomeThingParams2
+            ) {
+                console.log(
+                    'modelTools effects awaitSaveSomeThing namespace=', namespace, ' payload=',
+                    payload,
+                    ' action =',
+                    action, ' awaitSaveSomeThing=', awaitSaveSomeThing
+                )
+
+                if (awaitSaveSomeThing) {
+                    // 处理不同的当前model相关异步请求
+                    // eslint-disable-next-line no-unused-vars
+                    const [err, data] = yield tool.to(
+                        awaitSaveSomeThing({ actions: action })
+                    )
+                    console.log('modelTools.js awaitSaveSomeThing data=', data)
+                    if (data && !err) {
+                        // 更新 当前model的 initState
+                        const newPayload = {
+                            [`${action}`]: data
+                        }
+                        console.log(
+                            'modelTools awaitSaveSomeThing 更新 当前model的 initState  newPayload=',
+                            newPayload
+                        )
+
+                        yield put({
+                            type: baseModel.baseEffects.saveSomeThing,
+                            payload: newPayload
+                        })
+                        callback && callback()
+                    }
                 }
             }
         },
 
         // reducers 里的每个方法都会注入到每个Model里
         reducers: {
-            clear() {
+            clear () {
                 return {}
             },
-            [baseModel.baseAction.saveSomeThing](state: object, {payload}: any) {
+            [baseModel.baseAction.saveSomeThing] (state: object, { payload }: any) {
                 // console.log("modelTools.js reducers saveSomeThing state=", state);
                 // console.log("modelTools.js reducers saveSomeThing payload=", payload);
                 const newState = {
@@ -132,7 +163,7 @@ const createDefault = ({namespace, attributesToBeCached, getCache, cacheFunc}: c
         subscriptions: {
             // 初始化缓存方法,每个model都会注入一次这个方法
             initCache: (params: { dispatch: any; history: any }) => {
-                const {dispatch, history} = params
+                const { dispatch, history } = params
                 console.log(
                     'modelTools.js subscriptions initCache attributesToBeCached=',
                     attributesToBeCached
@@ -142,10 +173,13 @@ const createDefault = ({namespace, attributesToBeCached, getCache, cacheFunc}: c
                     namespace,
                     dispatch,
                     history,
-                    attributesToBeCached, getCache, cacheFunc
+                    attributesToBeCached,
+                    getCache,
+                    cacheFunc
                 })
             }
-        }
+        },
+        awaitSaveSomeThing
     }
 }
 
