@@ -1,12 +1,4 @@
 import dva from './dva'
-import {cacheInterface} from './modelProps'
-
-export interface cacheAnAttributeOfInitStateProps {
-    key: string
-    value: any
-    attributesToBeCached: string[],
-    cacheFunc?: cacheInterface
-}
 
 // @ts-ignore
 export default {

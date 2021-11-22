@@ -18,8 +18,8 @@ export default () => {
       console.log('useDvaDispatch.js  type=', type, ' action=', action, ' payload=', payload, ' callback=', callback)
 
       return dispatch({
-        type, // 对应bannerModel里的某个effect
-        action, // 对应某个reducer
+        type, // 对应具体里的某个effect Corresponding to a specific effect
+        action, // 对应某个 reducer Corresponding to a reducer in the specific
         payload,
         callback
       })

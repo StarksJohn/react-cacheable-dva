@@ -1,5 +1,12 @@
-// import { baseModel } from 'react-cacheable-dva'
+/**
+ * 声明一个完整的 dvaModel 的例子
+ * Declare a complete dvaModel example
+ */
+// import { baseModel,modelProps} from 'react-cacheable-dva' Uncomment when using
+//Add comments when using
 import baseModel from '../src/baseModel'
+//Add comments when using
+import {modelProps} from '../src/modelProps'
 
 const userModel = 'userModel'
 const initState = {
@@ -36,7 +43,36 @@ const action = {
    * Change the action of access_token in initState
    * 改变 initState里的 access_token 的 action
    */
-  access_token: 'access_token' //
+  access_token: 'access_token'
+}
+
+/**
+ * 用于异步获取数据 && 更新当前model 的initState, 由 dvaDispatch({
+        type: userModel.effects.awaitSaveSomeThing,
+        action: userModel.action.access_token,
+        payload: {},
+        callback: () => {
+        }
+      }) 触发,在 modelTools.ts 里的  [baseModel.baseEffects.awaitSaveSomeThing] 这个effects里调用
+ * @param actions
+ */
+// @ts-ignore
+const awaitSaveSomeThing = async ({ actions }) => {
+  switch (actions) {
+      // eslint-disable-next-line no-lone-blocks
+    case action.access_token: {
+      // const [err, data] = await tool.to(api.access_token({}))
+      // console.log('TimeLimitPanel time_limit res=', data)
+      // if (data && !err) {
+      //   return Promise.resolve(data)
+      // }
+    }
+      break
+  }
+}
+
+export interface userModeProps extends modelProps {
+  access_token:string
 }
 
 /**
@@ -52,9 +88,9 @@ export default {
    * 当前model需要被缓存的数据的key
    */
   attributesToBeCached: [
-    'access_token'
+    action.access_token
   ],
   effects,
   reducers: {},
-  action
+  action,awaitSaveSomeThing
 }

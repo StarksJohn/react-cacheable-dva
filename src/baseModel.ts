@@ -63,14 +63,12 @@ export default {
                     if (objTools.isNotEmpty(value)) {
                         const payload = {[`${key}`]: value}
                         console.log('baseModel.js dispatch payload=', payload)
-
                         dispatch({
                             type: 'baseAction/saveSomeThing',
                             payload
                         })
                     }
                 }
-
             })
         }
     }

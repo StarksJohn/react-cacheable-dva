@@ -49,3 +49,10 @@ export interface createDefaultProps extends awaitSaveSomeThing{
     getCache?: getCacheInterface,
     cacheFunc?: cacheInterface
 }
+
+export interface cacheAnAttributeOfInitStateProps {
+    key: string
+    value: any
+    attributesToBeCached: string[],
+    cacheFunc?: cacheInterface
+}

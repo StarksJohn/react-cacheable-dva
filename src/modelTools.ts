@@ -1,9 +1,8 @@
 /* eslint-disable consistent-return */
 // @ts-ignore
 import _ from 'lodash'
-import { cacheAnAttributeOfInitStateProps } from './tool'
 import baseModel from './baseModel'
-import { saveSomeThingParams1, saveSomeThingParams2, createDefaultProps } from './modelProps'
+import { saveSomeThingParams1, saveSomeThingParams2, createDefaultProps ,cacheAnAttributeOfInitStateProps } from './modelProps'
 import { tool } from 'starkfrontendtools'
 
 /**
