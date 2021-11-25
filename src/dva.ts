@@ -1,8 +1,9 @@
 // @ts-ignore
 import { create } from 'dva-core'
+import {Store} from 'redux'
 
-let app: { model: (arg0: any) => any; use: (arg0: { onError(err: any): void }) => void; start: () => void; _store: any; getStore: { (): { (): any; new(): any; getState: { (): any; new(): any } }; dispatch: any; }; dispatch: (arg0: any) => any }
-let store: { dispatch: any }
+let app: { model: (arg0: any) => any; use: (arg0: { onError(err: any): void }) => void; start: () => void; _store: any; getStore: { (): Store; dispatch: any; }; dispatch: (arg0: any) => any }
+let store: Store
 let dispatch
 let registered: boolean
 
