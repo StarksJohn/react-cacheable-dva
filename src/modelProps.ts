@@ -15,6 +15,7 @@ export interface modelProps extends awaitSaveSomeThing {
     attributesToBeCached?:string[]|undefined, // Array of string type
     getCache?:getCacheInterface,
     cacheFunc?:cacheInterface,
+    isCompleteInitCache:boolean,//当前model的缓存是否初始化完毕 Whether the cache of the current model is initialized
     [propName: string]: any;// Arbitrary attribute
 }
 
