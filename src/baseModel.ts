@@ -70,6 +70,11 @@ export default {
                     }
                 }
             })
+            console.log(
+                "baseModel.js baseSubscriptions initCache namespace=",
+                namespace,
+                " 缓存初始化完毕"
+            );
         }
     }
 }
