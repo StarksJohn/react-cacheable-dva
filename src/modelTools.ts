@@ -30,7 +30,7 @@ const cacheAnAttributeOfInitState = ({ key, value, attributesToBeCached, cacheFu
 const createDefault = ({ namespace, attributesToBeCached, getCache, cacheFunc, awaitSaveSomeThing }: createDefaultProps) => {
     return {
         namespace,
-        state: {},
+        state: {isCompleteInitCache:false},
         // modelTools.ts 里的 每个 effects 都会注入到每个 Model 里
         effects: {
             /**
