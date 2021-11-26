@@ -74,6 +74,12 @@ export default {
                             namespace,
                             " 缓存初始化完毕"
                         );
+                        dispatch({
+                            type: 'baseAction/saveSomeThing',
+                            payload:{
+                                isCompleteInitCache:true
+                            }
+                        })
                     }
                 }
             })
