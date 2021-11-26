@@ -49,7 +49,7 @@ export default {
                 ' attributesToBeCached=',
                 attributesToBeCached
             )
-            _.forEach(attributesToBeCached, async (key: string) => {
+            _.forEach(attributesToBeCached, async (key: string,index: number, collection: []) => {
                 console.log('baseModel.js initCache forEach key=', key)
                 // const value = localStorage.getItem(key) ||[]
                 if (getCache) {
@@ -68,13 +68,16 @@ export default {
                             payload
                         })
                     }
+                    if (index===collection.length-1) {
+                        console.log(
+                            "baseModel.js baseSubscriptions initCache namespace=",
+                            namespace,
+                            " 缓存初始化完毕"
+                        );
+                    }
                 }
             })
-            console.log(
-                "baseModel.js baseSubscriptions initCache namespace=",
-                namespace,
-                " 缓存初始化完毕"
-            );
+
         }
     }
 }
