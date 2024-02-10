@@ -4,7 +4,7 @@ import _ from 'lodash'
 import baseModel from './baseModel'
 import { saveSomeThingParams1, saveSomeThingParams2, createDefaultProps ,cacheAnAttributeOfInitStateProps } from './modelProps'
 // import { tool } from 'starkfrontendtools'
-import *as tool from './tool'
+import  tool from './tool'
 /**
  * 缓存 initState 的某个属性,如果这个属性再 attributesToBeCached 里注册了的话
  * @param key
