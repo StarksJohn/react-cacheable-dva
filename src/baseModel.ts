@@ -1,6 +1,8 @@
 // @ts-ignore
 import _ from 'lodash'
-import {tool as _tool,objTools} from 'starkfrontendtools'
+// import {tool as _tool,objTools} from 'starkfrontendtools'
+import *as _tool from './tool'
+import *as objTools from './objTools'
 import {getCacheInterface, cacheInterface} from './modelProps'
 
 interface initCacheProps {
